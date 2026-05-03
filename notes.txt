@@ -1,0 +1,9 @@
+CNA_URL: "https://prod-26.spaincentral.logic.azure.com:443/workflows/22f27339a06a4318a15c008d16a1313f/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=GrccYss1q4keygRf6_peJlqKVdwX7hmE0ug-PWhPrZ8",
+
+RAA_URL: "https://prod-19.spaincentral.logic.azure.com:443/workflows/f69c1f3e47944716be07829346803658/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=eQUeb7yckZ2KJpM9rdAplYJBbAf7WHbo7ZFl-kSfXQo",
+
+RIA_URL: "https://prod-07.spaincentral.logic.azure.com:443/workflows/aabb138a80af4157aa6452cf1eacb981/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=EIp9P7sgoP-mlEOSADjhSj4bqinzhGuHSKuuoflNgJY",
+
+UIA_URL: "https://prod-29.spaincentral.logic.azure.com:443/workflows/9feb7bc937074ed4bad9cd2efeb033c7/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=O4s4_j2h9FS8jDi0nwEzQ49-0Dx4cPKu9yXXRJZG5_I",
+
+DIA_URL: "https://prod-31.spaincentral.logic.azure.com:443/workflows/fd88426c8f3a4f98a7bbaa163bef6c61/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=cNvs37pi-cVL0cWnzw3mwjmqT7E98dFonmGN9bKq71M"

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cloudstream — Learning Resources</title>
+<style>
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root{
+  --font-main:"Inter","Segoe UI",system-ui,sans-serif;
+  --font-display:"Cormorant Garamond",Georgia,serif;
+  --bg:#f4f2ed;
+  --surface:#fff;
+  --soft:#fafaf8;
+  --muted-bg:#efeee9;
+  --text:#181817;
+  --soft-text:#3f3f3b;
+  --muted:#74736d;
+  --light:#9b9a93;
+  --border:#e4e1d8;
+  --border-dark:#d2cec2;
+  --ink:#111;
+  --accent:#1f4f46;
+  --accent-soft:#e8f1ed;
+  --warn:#a56a16;
+  --warn-soft:#fff5df;
+  --danger:#a33a2f;
+  --danger-soft:#fff0ed;
+  --blue:#315d86;
+  --blue-soft:#eaf1f6;
+  --radius-md:16px;
+  --radius-lg:24px;
+  --radius-xl:34px;
+  --pill:999px;
+  --shadow-soft:0 14px 36px rgba(24,24,20,.065);
+  --shadow-card:0 24px 60px rgba(24,24,20,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow-x:hidden}
+button,input,select,textarea{font:inherit}button{border:0;background:transparent;cursor:pointer}svg{display:inline-block;vertical-align:middle;flex-shrink:0}a{text-decoration:none;color:inherit}
+.home-page{min-height:100vh;overflow-x:hidden;background:var(--bg)}
+
+/* HERO inspired by supplied GameReview design */
+.landing-hero{position:relative;width:calc(100% - 16px);min-height:calc(100svh - 16px);margin:8px;padding:4.5rem 0 6rem;border-radius:28px;overflow:hidden;display:flex;align-items:center;justify-content:center;isolation:isolate;background:linear-gradient(135deg,rgba(14,23,20,.78),rgba(23,38,33,.48)),radial-gradient(circle at 20% 16%,rgba(255,255,255,.17),transparent 28%),radial-gradient(circle at 75% 72%,rgba(232,241,237,.18),transparent 34%),linear-gradient(120deg,#18221f,#34463f 48%,#151817)}
+.landing-hero:before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(115deg,rgba(0,0,0,.25),rgba(0,0,0,.04) 45%,rgba(0,0,0,.35)),repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 140px);filter:saturate(.95) contrast(1.05)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(9,10,12,.20),rgba(9,10,12,.14) 36%,rgba(9,10,12,.55)),radial-gradient(circle,rgba(0,0,0,.02),rgba(0,0,0,.33) 72%,rgba(0,0,0,.62))}
+.hero-content{position:relative;z-index:2;width:min(1080px,calc(100% - 48px));margin:auto;text-align:center;color:#fff}.hero-mark{width:clamp(72px,6vw,104px);margin:0 auto 1.35rem;opacity:.94}.hero-mark svg{width:100%;height:auto}.hero-kicker,.section-label,.overview-card span,.dashboard-note span,.tag-label,.meta-box span,.publisher-box span{display:block;color:var(--muted);font-size:.74rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.hero-kicker{margin-bottom:1.2rem;color:rgba(255,255,255,.92);text-transform:none;text-shadow:0 8px 28px rgba(0,0,0,.45)}
+.hero-content h1{margin:0;font-family:var(--font-display);font-size:clamp(4.3rem,9.1vw,9.4rem);font-weight:400;line-height:.87;letter-spacing:-.045em;text-shadow:0 24px 70px rgba(0,0,0,.38)}
+.hero-content p{max-width:680px;margin:2rem auto 0;color:rgba(255,255,255,.9);font-size:clamp(.98rem,1.2vw,1.15rem);font-weight:500;line-height:1.8;text-shadow:0 12px 34px rgba(0,0,0,.45)}.hero-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:.85rem;margin-top:2.35rem}
+
+/* BUTTONS */
+.btn,.hero-btn,.card-btn,.reset-btn,.empty-btn,.pagination button{display:inline-flex;align-items:center;justify-content:center;border-radius:var(--pill);font-family:var(--font-main);font-weight:750;text-decoration:none;cursor:pointer;transition:.18s ease}.hero-btn,.btn{min-height:50px;padding:.9rem 1.45rem;border:1px solid transparent;font-size:.92rem;gap:.55rem}.hero-btn:hover,.card-btn:hover,.reset-btn:hover,.btn:hover,.pagination button:hover:not(:disabled):not(.active){transform:translateY(-1px)}.hero-btn-primary,.empty-btn,.card-btn-primary,.btn-primary,.pagination button.active{background:#111;border-color:#111;color:#fff}.hero-btn-primary{background:#fff;border-color:#fff;color:#101010;box-shadow:0 18px 45px rgba(0,0,0,.18)}.hero-btn-primary:hover{background:#f1f1ed}.hero-btn-secondary{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.42);color:#fff;backdrop-filter:blur(14px)}.hero-btn-secondary:hover{background:rgba(255,255,255,.2)}.btn-secondary,.btn-white{background:#fff;border:1px solid var(--border);color:var(--text)}.btn-danger{background:var(--danger-soft);border:1px solid rgba(163,58,47,.2);color:var(--danger)}.btn-sm{min-height:38px;padding:.6rem .9rem;font-size:.82rem}.btn-icon{width:40px;padding:.6rem;min-height:38px}
+
+/* BODY */
+.dashboard-body{position:relative;z-index:3;padding:4rem 0 5rem;background:linear-gradient(180deg,#fff,#faf9f5 48%,var(--bg))}.dashboard-inner{width:min(1560px,calc(100% - 64px));margin:auto}.overview-grid,.resources-grid,.meta-grid{display:grid;gap:1.05rem}.overview-grid{position:relative;z-index:4;grid-template-columns:repeat(4,1fr);margin:-6.5rem 0 3.2rem}.overview-card,.dashboard-note,.filter-panel,.state-panel,.resource-card,.meta-box,.publisher-box,.impl-panel,.course-strip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft)}.overview-card,.resource-card{transition:.18s ease}.overview-card:hover,.resource-card:hover{transform:translateY(-4px);border-color:var(--border-dark);box-shadow:var(--shadow-card)}.overview-card{padding:1.35rem 1.3rem;background:rgba(255,255,255,.92);border-color:rgba(255,255,255,.72);backdrop-filter:blur(18px)}.overview-card strong{display:block;margin-top:.42rem;font-size:1.95rem;font-weight:650;line-height:1;letter-spacing:-.045em}.overview-card p,.dashboard-intro p,.library-heading p,.dashboard-note p,.state-panel p,.card-desc{color:var(--muted);line-height:1.65}.overview-card p{margin:.75rem 0 0;font-size:.88rem}.dashboard-intro{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:1.5rem;align-items:end;margin-bottom:1.3rem}.dashboard-intro h2,.library-heading h2,.state-panel h2{margin:0 0 .4rem;color:var(--text);font-weight:750;line-height:1.1;letter-spacing:-.04em}.dashboard-intro h2,.library-heading h2{font-size:clamp(1.65rem,2.3vw,2.25rem)}.dashboard-note{padding:1.1rem 1.15rem}.dashboard-note span{margin-bottom:.35rem;color:var(--text)}.impl-panel{display:none;margin:0 0 1.2rem;padding:1.1rem 1.2rem;border-radius:var(--radius-md);font-size:.9rem;color:var(--muted);line-height:1.65}.impl-panel.show{display:block}.impl-label{color:var(--accent);font-weight:800;margin-bottom:.35rem;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem}.impl-text{font-family:"JetBrains Mono",monospace;font-size:.82rem;color:var(--soft-text)}
+
+/* COURSES */
+.course-strip{padding:1rem;margin-bottom:1.25rem;border-radius:var(--radius-xl)}.course-strip-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:0 .25rem .9rem}.course-strip-head h2{font-size:1.2rem;letter-spacing:-.035em}.course-strip-head p{font-size:.88rem;color:var(--muted);line-height:1.55}.course-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.65rem}.sb-course{display:flex;align-items:center;gap:.65rem;text-align:left;padding:.85rem .9rem;border:1px solid var(--border);border-radius:18px;background:var(--soft);transition:.18s ease}.sb-course:hover{transform:translateY(-1px);border-color:var(--border-dark);background:#fff}.sb-course.active{background:#111;color:#fff;border-color:#111;box-shadow:0 14px 30px rgba(0,0,0,.16)}.sb-course-dot{width:9px;height:9px;border-radius:50%;background:var(--border-dark);flex-shrink:0}.sb-course.active .sb-course-dot{background:#fff}.sb-course-inner{min-width:0;flex:1}.sb-course-code{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.72rem;color:var(--accent);letter-spacing:.05em}.sb-course.active .sb-course-code{color:rgba(255,255,255,.78)}.sb-course-name{font-size:.86rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sb-count-badge{font-size:.72rem;font-weight:800;background:#fff;border:1px solid var(--border);border-radius:999px;padding:.2rem .5rem;color:var(--muted)}.sb-course.active .sb-count-badge{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.18)}
+
+/* FILTERS */
+.filter-panel{display:flex;align-items:center;gap:.9rem;margin-bottom:3rem;padding:.95rem;border-radius:var(--radius-xl)}.input-wrap{position:relative;flex:1;min-width:320px}.input-icon{position:absolute;left:1.05rem;top:50%;width:17px;height:17px;transform:translateY(-50%);color:var(--light);pointer-events:none}.input-icon-pad{padding-left:2.8rem!important}.filter-controls{display:flex;gap:.6rem;flex-wrap:wrap}.filter-controls select,.reset-btn,.search-box input,.input-wrap input{height:50px;border:1px solid var(--border);border-radius:var(--pill);background:var(--soft);color:var(--text);font-family:var(--font-main);outline:none}.input-wrap input{width:100%;padding:0 1.1rem;font-size:.94rem}.input-wrap input:focus,.filter-controls select:focus,input:focus,select:focus,textarea:focus{background:#fff;border-color:#c7c1b3;box-shadow:0 0 0 4px rgba(82,74,55,.07)}.filter-controls select{min-width:155px;padding:0 1rem;font-size:.88rem;font-weight:500}.reset-btn{padding:0 1.18rem}
+input,select,textarea{width:100%;border:1px solid var(--border);border-radius:14px;background:var(--soft);color:var(--text);padding:.78rem .9rem;outline:none;font-family:var(--font-main)}textarea{min-height:96px;resize:vertical}
+
+/* STATES */
+.state-panel,.empty-state{margin-bottom:2rem;padding:4.2rem 1.5rem;text-align:center;border-style:dashed;border-radius:var(--radius-xl)}.empty-state{grid-column:1/-1;background:#fff;border:1px dashed var(--border);box-shadow:var(--shadow-soft)}.state-icon,.empty-icon{width:58px;height:58px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;background:var(--muted-bg);border:1px solid var(--border);border-radius:18px;color:var(--muted)}.state-icon svg,.empty-icon svg{width:26px;height:26px}.empty-title{font-size:1.25rem;font-weight:750;letter-spacing:-.03em}.empty-sub{margin-top:.35rem;color:var(--muted);line-height:1.65}.spinning svg{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* LIBRARY */
+.library-heading{margin-bottom:1.2rem;display:flex;justify-content:space-between;gap:1rem;align-items:end}.library-heading strong{color:var(--text)}.resources-grid{grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1.35rem}.resource-card{display:flex;flex-direction:column;min-height:100%;padding:1.3rem;border-radius:var(--radius-xl);overflow:hidden}.card-thumb{height:156px;border-radius:22px;display:grid;place-items:center;margin-bottom:1.05rem;overflow:hidden;position:relative;background:var(--muted-bg);border:1px solid var(--border)}.card-thumb img{width:100%;height:100%;object-fit:cover}.card-thumb-gradient-pdf{background:linear-gradient(135deg,#fff5ed,#ffe1d3)}.card-thumb-gradient-doc{background:linear-gradient(135deg,#eef2ff,#e9e5ff)}.card-thumb-gradient-vid{background:linear-gradient(135deg,#f4f0ff,#ece4ff)}.card-thumb-gradient-img{background:linear-gradient(135deg,#e4fbf0,#d6f8e5)}.card-thumb-icon-wrap{display:flex;flex-direction:column;align-items:center;gap:.5rem}.card-thumb-icon{width:58px;height:58px;border-radius:18px;background:#fff;border:1px solid var(--border);display:grid;place-items:center;box-shadow:var(--shadow-soft)}.card-thumb-label{font-family:"JetBrains Mono",monospace;font-size:.74rem;font-weight:800;letter-spacing:.08em}.thumb-pdf-color{color:#c55a20}.thumb-doc-color{color:#564fb0}.thumb-vid-color{color:#6941c6}.thumb-img-color{color:var(--accent)}.card-type-badge{position:absolute;top:.8rem;right:.8rem;padding:.42rem .72rem;border-radius:var(--pill);font-size:.7rem;font-weight:800;background:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.6);backdrop-filter:blur(12px);text-transform:uppercase;letter-spacing:.06em}.card-body{display:flex;flex-direction:column;gap:.7rem;flex:1}.card-meta-top,.tag-list{display:flex;flex-wrap:wrap;gap:.42rem}.chip,.tag-list span{display:inline-flex;align-items:center;border-radius:var(--pill);font-weight:700}.chip{padding:.38rem .72rem;font-size:.76rem;background:#f2f0ea;color:var(--soft-text)}.chip-blue{background:var(--blue-soft);color:var(--blue)}.chip-green{background:#e3fcf0;color:#00875a}.chip-purple{background:#f4f0ff;color:#6941c6}.chip-amber{background:#fef3e2;color:#b45309}.chip-red{background:#fff0ee;color:#d92d20}.chip-gray{background:#f2f0ea;color:var(--soft-text)}.chip-teal{background:#e0f9fa;color:#0694a2}.card-title{font-size:1.24rem;line-height:1.3;letter-spacing:-.035em;font-weight:750}.card-desc{flex-grow:1;min-height:56px;margin:0;font-size:.93rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.card-footer{display:flex;gap:.75rem;margin-top:auto;padding-top:.7rem}.card-btn,.card-footer .btn{flex:1;min-height:44px;padding:.72rem 1rem;font-size:.9rem}.card-footer .btn-icon{flex:none;min-width:44px}.card-btn-secondary,.btn-secondary{background:#fff;border:1px solid var(--border);color:var(--text)}.card-btn-secondary:hover,.btn-secondary:hover{background:var(--bg)}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(13,18,36,.52);backdrop-filter:blur(7px);padding:20px}.modal-overlay.show{display:flex}.modal{background:var(--surface);border:1px solid var(--border);border-radius:28px;width:min(720px,100%);max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-card)}.modal-wide{width:min(1050px,100%)}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:1.45rem 1.55rem 1.15rem;border-bottom:1px solid var(--border)}.modal-head-row{display:flex;align-items:center;gap:.85rem}.modal-head-icon{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;background:var(--muted-bg);color:var(--accent)}.modal-head-title{font-size:1.28rem;font-weight:800;letter-spacing:-.04em}.modal-head-sub{font-size:.88rem;color:var(--muted);margin-top:.25rem}.close-btn{width:38px;height:38px;border-radius:50%;background:var(--soft);border:1px solid var(--border);display:grid;place-items:center;color:var(--muted)}.close-btn:hover{background:var(--danger-soft);color:var(--danger)}.modal-body{padding:1.45rem 1.55rem}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.form-full{grid-column:1/-1}.form-label{display:block;font-size:.74rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}.modal-actions{display:flex;justify-content:flex-end;gap:.7rem;margin-top:1.35rem;padding-top:1.05rem;border-top:1px solid var(--border)}.upload-zone{border:2px dashed var(--border-dark);border-radius:22px;background:var(--soft);padding:1.35rem;text-align:center;transition:.2s}.upload-zone.drag{border-color:var(--accent);background:var(--accent-soft)}.upload-zone-icon{color:var(--muted);margin-bottom:.65rem}.upload-zone strong{font-weight:750}.upload-zone p{font-size:.88rem;color:var(--muted);margin-top:.35rem;line-height:1.55}.upload-preview{display:none;margin-top:.9rem;border:1px solid var(--border);border-radius:18px;overflow:hidden;background:#fff}.upload-preview.show{display:block}.upload-preview img{width:100%;max-height:230px;object-fit:cover;display:block}.file-info-row{padding:.75rem .9rem;display:flex;justify-content:space-between;gap:.8rem;font-size:.88rem;color:var(--muted);background:#fff}.progress-bar{display:none;height:5px;background:var(--muted-bg);border-radius:999px;margin-top:.9rem;overflow:hidden}.progress-bar.show{display:block}.progress-fill{height:100%;width:0;background:#111;transition:.3s;border-radius:999px}
+
+/* PREVIEW */
+.preview-layout{display:grid;grid-template-columns:1.18fr .92fr;gap:1.35rem}.preview-media{min-height:420px;border-radius:24px;background:var(--muted-bg);border:1px solid var(--border);display:grid;place-items:center;overflow:hidden}.preview-media img,.preview-media video,.preview-media iframe{width:100%;height:100%;min-height:420px;object-fit:contain;border:0}.preview-info-title{font-family:var(--font-display);font-size:2.25rem;line-height:1;letter-spacing:-.045em;margin:.6rem 0}.preview-info-desc{font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}.info-row{display:flex;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--border);font-size:.9rem}.info-key{width:105px;flex-shrink:0;color:var(--muted);font-size:.74rem;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.05em}.info-val{font-weight:650;color:var(--text)}.preview-actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.1rem}
+
+/* TOAST */
+.toast{position:fixed;right:22px;bottom:22px;z-index:100;min-width:270px;max-width:410px;padding:.9rem 1rem;border-radius:16px;font-size:.9rem;font-weight:700;display:none;box-shadow:var(--shadow-card);border:1px solid;align-items:center;gap:.55rem}.toast.show{display:flex;animation:slideIn .25s ease}.toast-ok{background:#ecfdf5;color:#00875a;border-color:rgba(0,135,90,.25)}.toast-err{background:var(--danger-soft);color:var(--danger);border-color:rgba(163,58,47,.25)}@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.footer-note{text-align:center;font-size:.78rem;color:var(--muted);font-family:"JetBrains Mono",monospace;letter-spacing:.04em;padding:2rem 0 0}.mhi-blue{background:var(--blue-soft);color:var(--blue)}.mhi-amber{background:var(--warn-soft);color:var(--warn)}::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-dark);border-radius:4px}
+
+@media(max-width:1200px){.dashboard-intro{grid-template-columns:1fr}.resources-grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}.overview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.hero-content,.dashboard-inner{width:min(100% - 40px,1560px)}.filter-panel{flex-direction:column;align-items:stretch}.input-wrap{min-width:unset}.filter-controls{display:grid;grid-template-columns:repeat(2,1fr)}.filter-controls select,.reset-btn{width:100%}.form-grid,.preview-layout{grid-template-columns:1fr}.preview-media,.preview-media img,.preview-media video,.preview-media iframe{min-height:310px}}
+@media(max-width:700px){.landing-hero{min-height:100svh;padding:5.5rem 0 4rem}.hero-overlay{background:linear-gradient(180deg,rgba(8,9,11,.58),rgba(8,9,11,.5) 42%,rgba(8,9,11,.74))}.hero-content h1{font-size:clamp(3.2rem,16vw,5.2rem);line-height:.9}.hero-content p{font-size:.98rem;line-height:1.7}.hero-actions{width:100%}.hero-btn{min-width:180px}.dashboard-body{padding:2.4rem 0 3.8rem}.dashboard-inner{width:calc(100% - 28px)}.overview-grid{margin-top:-3.5rem}.overview-grid,.filter-controls,.meta-grid,.course-list{grid-template-columns:1fr}.resources-grid{grid-template-columns:1fr}.card-footer{flex-wrap:wrap}.card-footer .btn{flex:1 1 42%}.hero-actions{flex-direction:column}.hero-btn,.btn{width:100%}.overview-card,.resource-card{padding:1rem}}
+
+</style>
+</head>
+<body>
+
+<main class="home-page">
+  <section class="landing-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-mark" aria-hidden="true">
+        <svg viewBox="0 0 120 60" fill="none">
+          <path d="M8 52L35 10L62 52H8Z" stroke="currentColor" stroke-width="4" />
+          <path d="M42 52L65 17L112 52H42Z" stroke="currentColor" stroke-width="4" />
+          <path d="M28 52L52 27L78 52" stroke="currentColor" stroke-width="4" />
+        </svg>
+      </div>
+      <span class="hero-kicker">Cloudstream Learning Hub</span>
+      <h1>Share, preview,<br>and manage resources.</h1>
+      <p>Organise lecture notes, PDFs, slides, videos, images and study documents into one clean course workspace for students and lecturers.</p>
+      <span id="heroTotal" style="display:none">0</span>
+      <div class="hero-actions">
+        <button class="hero-btn hero-btn-primary" id="openUpload" type="button">Upload Material</button>
+        <button class="hero-btn hero-btn-secondary" id="refreshBtn" type="button">Refresh Library</button>
+        <button class="hero-btn hero-btn-secondary" id="techToggle" type="button">Cloud Architecture</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-body">
+    <div class="dashboard-inner">
+      <section class="overview-grid">
+        <article class="overview-card"><span>Total Resources</span><strong id="totalCount">0</strong><p>Materials currently available across Cloudstream modules.</p></article>
+        <article class="overview-card"><span>Notes & Slides</span><strong id="noteCount">0</strong><p>Lecture notes and slide decks uploaded to the resource library.</p></article>
+        <article class="overview-card"><span>Media Files</span><strong id="mediaCount">0</strong><p>Images and video resources available for course learning.</p></article>
+        <article class="overview-card"><span>Active Module</span><strong id="activeStat">All</strong><p>Currently selected module filter for the resource library.</p></article>
+      </section>
+
+      <section class="dashboard-intro">
+        <div>
+          <span class="section-label">Course Resource Workspace</span>
+          <h2>Browse your learning materials</h2>
+          <p>Search, filter and preview course content in a Blackboard-style workspace. The interface stays simple for users while Azure Logic Apps, Blob Storage and Cosmos DB handle the cloud workflow in the background.</p>
+        </div>
+        <div class="dashboard-note">
+          <span>Tip</span>
+          <p>Select a module below to narrow the library, or use the search and category filters to quickly locate a resource by title, week, tag or file name.</p>
+        </div>
+      </section>
+
+      <section class="course-strip">
+        <div class="course-strip-head">
+          <div><h2>Modules</h2><p>Select a course to view its materials.</p></div>
+          <button class="btn btn-primary" id="openUpload2" type="button">Upload Material</button>
+        </div>
+        <div class="course-list" id="courseList"></div>
+      </section>
+
+      <section class="impl-panel" id="implPanel">
+        <div class="impl-label">Cloud Architecture</div>
+        <div class="impl-text">Azure Logic Apps handle create, retrieve, update and delete operations · Files are stored in Azure Blob Storage · Metadata and activity are stored in Cosmos DB · Structured course data is stored in Azure SQL.</div>
+      </section>
+
+      <section class="filter-panel">
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input id="searchInput" class="input-icon-pad" placeholder="Search title, tags, week, description or file name..." />
+        </div>
+        <div class="filter-controls">
+          <select id="typeFilter"><option value="all">All file types</option><option value="pdf">PDF</option><option value="image">Images</option><option value="video">Videos</option><option value="document">Documents</option></select>
+          <select id="categoryFilter"><option value="all">All categories</option><option>Lecture Notes</option><option>Lecture Slides</option><option>Recorded Lecture</option><option>Tutorial Material</option><option>Assignment Brief</option><option>Revision Material</option><option>Other</option></select>
+          <select id="sortSelect"><option value="newest">Newest First</option><option value="oldest">Oldest First</option><option value="title">Title A-Z</option></select>
+        </div>
+      </section>
+
+      <section class="library-section">
+        <div class="library-heading">
+          <div>
+            <span class="section-label">Resource Library</span>
+            <h2>Available materials</h2>
+            <p id="librarySub">Showing resources across modules.</p>
+          </div>
+        </div>
+        <div class="resources-grid" id="resources">
+          <div class="empty-state">
+            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+            <h2>Loading resources...</h2>
+            <p>Cloudstream is refreshing your library.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-note">Cloudstream · COM682 Cloud Native Development · Coursework prototype</div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="uploadOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-head-row"><div class="modal-head-icon mhi-blue">↑</div><div><div class="modal-head-title">Upload course material</div><div class="modal-head-sub">Add notes, slides, recordings, PDFs or images to a module.</div></div></div>
+      <button class="close-btn" data-close="uploadOverlay" type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="uploadForm">
+        <div class="form-grid">
+          <div><label class="form-label">Title</label><input id="title" required placeholder="Week 4 Azure Logic Apps Notes"></div>
+          <div><label class="form-label">Course</label><select id="courseId" required></select></div>
+          <div><label class="form-label">Category</label><select id="category" required><option>Lecture Notes</option><option>Lecture Slides</option><option>Recorded Lecture</option><option>Tutorial Material</option><option>Assignment Brief</option><option>Revision Material</option><option>Other</option></select></div>
+          <div><label class="form-label">Week / Topic</label><input id="week" placeholder="Week 4"></div>
+          <div><label class="form-label">Visibility</label><select id="visibility"><option>Course students</option><option>Lecturers only</option><option>Public course resource</option></select></div>
+          <div><label class="form-label">Uploaded by</label><input id="uploadedBy" value="Aayush"></div>
+          <div class="form-full"><label class="form-label">Description</label><textarea id="description" placeholder="Describe what students will learn from this resource"></textarea></div>
+          <div class="form-full"><label class="form-label">Tags</label><input id="tags" placeholder="azure, logic apps, storage"></div>
+          <div class="form-full"><label class="form-label">File</label><div id="dropArea" class="upload-zone"><div class="upload-zone-icon">☁</div><strong>Drop a file here, or click to browse</strong><p>Images preview immediately. PDFs, videos and documents preview after upload when the Blob URL is accessible.</p><input id="fileInput" type="file" required style="margin-top:12px"><div id="uploadPreview" class="upload-preview"></div></div><div class="progress-bar" id="progress"><div class="progress-fill" id="progressFill"></div></div></div>
+        </div>
+        <div class="modal-actions"><button type="button" class="btn btn-secondary" data-close="uploadOverlay">Cancel</button><button type="submit" class="btn btn-primary">Upload material</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="previewOverlay">
+  <div class="modal modal-wide">
+    <div class="modal-head"><div class="modal-head-row"><div class="modal-head-icon mhi-blue">◎</div><div><div class="modal-head-title">Resource preview</div><div class="modal-head-sub">View the selected course material.</div></div></div><button class="close-btn" data-close="previewOverlay" type="button">×</button></div>
+    <div class="modal-body"><div id="previewContent" class="preview-layout"></div></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editOverlay">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-head-row"><div class="modal-head-icon mhi-amber">✎</div><div><div class="modal-head-title">Edit material</div><div class="modal-head-sub">Update resource details without changing the uploaded file.</div></div></div><button class="close-btn" data-close="editOverlay" type="button">×</button></div>
+    <div class="modal-body">
+      <form id="editForm">
+        <input id="editAssetId" type="hidden">
+        <div class="form-grid">
+          <div class="form-full"><label class="form-label">Title</label><input id="editTitle" required></div>
+          <div><label class="form-label">Course</label><select id="editCourseId" required></select></div>
+          <div><label class="form-label">Category</label><select id="editCategory" required><option>Lecture Notes</option><option>Lecture Slides</option><option>Recorded Lecture</option><option>Tutorial Material</option><option>Assignment Brief</option><option>Revision Material</option><option>Other</option></select></div>
+          <div><label class="form-label">Week / Topic</label><input id="editWeek"></div>
+          <div><label class="form-label">Visibility</label><select id="editVisibility"><option>Course students</option><option>Lecturers only</option><option>Public course resource</option></select></div>
+          <div class="form-full"><label class="form-label">Description</label><textarea id="editDescription" required></textarea></div>
+          <div class="form-full"><label class="form-label">Tags</label><input id="editTags"></div>
+        </div>
+        <div class="modal-actions"><button type="button" class="btn btn-secondary" data-close="editOverlay">Cancel</button><button type="submit" class="btn btn-primary">Save changes</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+
+    const CONFIG = {
+      CNA_URL:"https://prod-26.spaincentral.logic.azure.com:443/workflows/22f27339a06a4318a15c008d16a1313f/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=GrccYss1q4keygRf6_peJlqKVdwX7hmE0ug-PWhPrZ8",
+      RAA_URL:"https://prod-19.spaincentral.logic.azure.com:443/workflows/f69c1f3e47944716be07829346803658/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=eQUeb7yckZ2KJpM9rdAplYJBbAf7WHbo7ZFl-kSfXQo",
+      RIA_URL:"https://prod-07.spaincentral.logic.azure.com:443/workflows/aabb138a80af4157aa6452cf1eacb981/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=EIp9P7sgoP-mlEOSADjhSj4bqinzhGuHSKuuoflNgJY",
+      UIA_URL:"https://prod-29.spaincentral.logic.azure.com:443/workflows/9feb7bc937074ed4bad9cd2efeb033c7/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=O4s4_j2h9FS8jDi0nwEzQ49-0Dx4cPKu9yXXRJZG5_I",
+      DIA_URL:"https://prod-31.spaincentral.logic.azure.com:443/workflows/fd88426c8f3a4f98a7bbaa163bef6c61/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=cNvs37pi-cVL0cWnzw3mwjmqT7E98dFonmGN9bKq71M",
+      GET_COURSES_URL:"https://prod-19.spaincentral.logic.azure.com:443/workflows/574d193310aa44a4b03be8e6bb7a028c/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=xzEgWO_ees2fz4IjaJHHhzyCB0vfrPs2gSf4SV4EsSc"
+    };
+
+    const ALL_COURSE = {id:"all",code:"ALL",name:"All Courses",desc:"Resources from every loaded SQL course"};
+    let COURSES = [ALL_COURSE];
+
+    const CHIP_COLORS = {
+      'Lecture Notes':'chip-blue','Lecture Slides':'chip-purple',
+      'Recorded Lecture':'chip-teal','Tutorial Material':'chip-amber',
+      'Assignment Brief':'chip-red','Revision Material':'chip-green','Other':'chip-gray'
+    };
+
+    const THUMB_SVG = {
+      pdf: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+      video: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`,
+      image: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+      document: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>`
+    };
+
+    let assets = [], selectedCourse = "all", assetMap = new Map();
+    const $ = id => document.getElementById(id);
+
+    async function init() {
+      bindEvents();
+      await loadCourses();
+      renderCourses();
+      fillCourseSelects();
+      await loadAssets();
+    }
+
+    function bindEvents() {
+      $("openUpload").onclick = () => openModal("uploadOverlay");
+      $("openUpload2").onclick = () => openModal("uploadOverlay");
+      $("refreshBtn").onclick = loadAssets;
+      $("techToggle").onclick = () => $("implPanel").classList.toggle("show");
+      $("searchInput").oninput = renderResources;
+      $("typeFilter").onchange = renderResources;
+      $("categoryFilter").onchange = renderResources;
+      $("sortSelect").onchange = renderResources;
+      document.querySelectorAll("[data-close]").forEach(b => b.onclick = () => closeModal(b.dataset.close));
+      document.querySelectorAll(".modal-overlay").forEach(m => m.addEventListener("click", e => { if(e.target===m) closeModal(m.id); }));
+      $("fileInput").onchange = handleFilePreview;
+      $("uploadForm").onsubmit = uploadResource;
+      $("editForm").onsubmit = updateResource;
+      $("resources").addEventListener("click", handleResourceClick);
+      const drop = $("dropArea");
+      ["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("drag"); }));
+      ["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("drag"); }));
+      drop.addEventListener("drop", e => {
+        const f = e.dataTransfer.files[0]; if(!f) return;
+        const dt = new DataTransfer(); dt.items.add(f); $("fileInput").files = dt.files; handleFilePreview();
+      });
+    }
+
+    async function loadCourses() {
+      const url = CONFIG.GET_COURSES_URL;
+
+      if (!url || url.includes("PASTE_")) {
+        COURSES = [ALL_COURSE];
+        renderCourseLoadError("Paste your GetCourses Logic App URL inside CONFIG.GET_COURSES_URL.");
+        return;
+      }
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (!res.ok || data.success === false) {
+          throw new Error(data.message || "Course loading failed");
+        }
+
+        const rows = normalizeCourses(data);
+        const sqlCourses = rows
+          .map(row => {
+            const code = row.course_code || row.courseCode || row.code || row.CourseCode || row.course_id || row.courseId;
+            const name = row.course_name || row.courseName || row.name || row.title || row.CourseName || code;
+            return {
+              id: String(code || "").trim(),
+              code: String(code || "").trim(),
+              name: String(name || "").trim(),
+              desc: row.description || row.Description || "Course resources and learning materials"
+            };
+          })
+          .filter(course => course.id && course.id.toLowerCase() !== "all");
+
+        if (!sqlCourses.length) {
+          throw new Error("GetCourses returned no course rows from Azure SQL.");
+        }
+
+        COURSES = [ALL_COURSE, ...sqlCourses];
+        toast("Courses loaded from Azure SQL", "ok");
+      } catch (error) {
+        COURSES = [ALL_COURSE];
+        renderCourseLoadError(error.message);
+        toast("Courses not loaded from Azure SQL: " + error.message, "err");
+      }
+    }
+
+    function normalizeCourses(data) {
+      const candidates = [
+        data?.courses,
+        data?.courses?.value,
+        data?.courses?.body,
+        data?.courses?.body?.value,
+        data?.body?.courses,
+        data?.body?.value,
+        data?.value,
+        data?.ResultSets?.Table1,
+        data?.resultsets?.Table1,
+        data?.body?.ResultSets?.Table1,
+        data?.body?.resultsets?.Table1
+      ];
+
+      for (const item of candidates) {
+        if (Array.isArray(item)) return item;
+      }
+
+      const nested = findArray(data).filter(row => row && (row.course_code || row.course_name || row.courseCode || row.courseName || row.code));
+      return nested;
+    }
+
+    function renderCourseLoadError(message) {
+      const target = $("courseList");
+      if (!target) return;
+      target.innerHTML = `
+        <div class="sb-card" style="box-shadow:none;border-style:dashed">
+          <div class="sb-card-title"><span class="status-dot dot-amber"></span>Courses not loaded</div>
+          <div class="sb-card-body">${esc(message)}</div>
+        </div>`;
+    }
+
+    function renderCourses() {
+      $("courseList").innerHTML = COURSES.map(c => `
+        <button class="sb-course ${c.id===selectedCourse?'active':''}" data-course="${c.id}">
+          <div class="sb-course-dot"></div>
+          <div class="sb-course-inner">
+            <div class="sb-course-code">${esc(c.code)}</div>
+            <div class="sb-course-name">${esc(c.name)}</div>
+          </div>
+          <div class="sb-count-badge">${countForCourse(c.id)}</div>
+        </button>`).join("");
+      document.querySelectorAll(".sb-course").forEach(btn => btn.onclick = () => {
+        selectedCourse = btn.dataset.course; renderCourses(); renderResources(); updateStats();
+      });
+    }
+
+    function fillCourseSelects() {
+      const courseOptions = COURSES.filter(c => c.id !== "all");
+      const opts = courseOptions.length
+        ? courseOptions.map(c=>`<option value="${c.id}">${c.code} — ${c.name}</option>`).join("")
+        : `<option value="">No SQL courses loaded</option>`;
+      $("courseId").innerHTML = opts;
+      $("editCourseId").innerHTML = opts;
+    }
+
+    async function loadAssets() {
+      try {
+        check(CONFIG.RAA_URL,"Resource list URL");
+        $("resources").innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg></div><div class="empty-title">Loading resources…</div><div class="empty-sub">Fetching from Azure.</div></div>`;
+        const res = await fetch(CONFIG.RAA_URL);
+        const data = await res.json();
+        assets = findArray(data).filter(x => x && x.recordType==="asset");
+        assetMap = new Map(assets.map(a=>[a.id,a]));
+        renderCourses(); renderResources(); updateStats();
+      } catch(e) {
+        $("resources").innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="empty-title">Could not load resources</div><div class="empty-sub">${esc(e.message)}</div></div>`;
+        toast(e.message,"err");
+      }
+    }
+
+    function renderResources() {
+      const q = $("searchInput").value.toLowerCase().trim();
+      const type = $("typeFilter").value, cat = $("categoryFilter").value, sort = $("sortSelect").value;
+      let list = assets.filter(a => {
+        const text = `${a.title||''} ${a.description||''} ${a.fileName||''} ${a.tags||''} ${a.week||''}`.toLowerCase();
+        return (selectedCourse==="all"||a.courseId===selectedCourse) && (!q||text.includes(q)) && (type==="all"||a.contentType===type) && (cat==="all"||a.category===cat);
+      });
+      list.sort((a,b) => sort==="title"?String(a.title||'').localeCompare(String(b.title||'')):sort==="oldest"?new Date(a.createdAt||0)-new Date(b.createdAt||0):new Date(b.createdAt||0)-new Date(a.createdAt||0));
+      const course = COURSES.find(c=>c.id===selectedCourse);
+      $("librarySub").textContent = selectedCourse==="all"?`Showing all ${list.length} resources across modules.`:`${list.length} resource${list.length!==1?'s':''} for ${course.name}.`;
+      if(!list.length) {
+        $("resources").innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="empty-title">No materials found</div><div class="empty-sub">Try adjusting filters or upload the first resource for this course.</div></div>`;
+        return;
+      }
+      $("resources").innerHTML = list.map(card).join("");
+    }
+
+    function card(a) {
+      const chipClass = CHIP_COLORS[a.category]||'chip-gray';
+      return `<article class="resource-card">
+        <div class="card-thumb ${thumbGradient(a)}">${thumb(a)}<div class="card-type-badge">${esc(a.contentType||'file')}</div></div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="chip chip-blue">${esc(a.courseId||'Course')}</span>
+            <span class="chip ${chipClass}">${esc(a.category||'Material')}</span>
+            ${a.week?`<span class="chip chip-gray">${esc(a.week)}</span>`:''}
+          </div>
+          <h3 class="card-title">${esc(a.title||'Untitled material')}</h3>
+          <p class="card-desc">${esc(a.description||'No description provided.')}</p>
+          <div class="card-footer">
+            <button class="btn btn-secondary btn-sm" data-action="preview" data-id="${escAttr(a.id)}">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview
+            </button>
+            <button class="btn btn-secondary btn-sm" data-action="edit" data-id="${escAttr(a.id)}">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+            <button class="btn btn-secondary btn-sm btn-icon" title="Copy ID" data-action="copy" data-id="${escAttr(a.id)}">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <button class="btn btn-danger btn-sm btn-icon" title="Delete" data-action="delete" data-id="${escAttr(a.id)}">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>`;
+    }
+
+    function thumbGradient(a) {
+      if(a.contentType==="pdf") return "card-thumb-gradient-pdf";
+      if(a.contentType==="video") return "card-thumb-gradient-vid";
+      if(a.contentType==="image") return "card-thumb-gradient-img";
+      return "card-thumb-gradient-doc";
+    }
+
+    function thumb(a) {
+      if(a.contentType==="image"&&a.fileUrl) return `<img src="${escAttr(a.fileUrl)}" alt="${escAttr(a.title)}" onerror="this.closest('.card-thumb').innerHTML='<div class=\\"card-thumb-icon-wrap\\"><div class=\\"card-thumb-icon thumb-img-color\\">${THUMB_SVG.image.replace(/"/g,"&quot;")}</div></div>'">`;
+      const type = a.contentType||'document';
+      const colorClass = {pdf:'thumb-pdf-color',video:'thumb-vid-color',image:'thumb-img-color',document:'thumb-doc-color'}[type]||'thumb-doc-color';
+      const svg = THUMB_SVG[type]||THUMB_SVG.document;
+      const label = {pdf:'PDF',video:'MP4',image:'IMG',document:'DOC'}[type]||'FILE';
+      return `<div class="card-thumb-icon-wrap"><div class="card-thumb-icon ${colorClass}">${svg}</div><span class="card-thumb-label ${colorClass}">${label}</span></div>`;
+    }
+
+    function handleResourceClick(e) {
+      const b = e.target.closest("button[data-action]"); if(!b) return;
+      const id = b.dataset.id;
+      if(b.dataset.action==="preview") previewResource(id);
+      if(b.dataset.action==="edit") openEdit(id);
+      if(b.dataset.action==="copy") copyText(id,"Asset ID copied");
+      if(b.dataset.action==="delete") deleteResource(id);
+    }
+
+    async function previewResource(id) {
+      try {
+        check(CONFIG.RIA_URL,"Resource detail URL");
+        const sep = CONFIG.RIA_URL.includes("?")?"&":"?";
+        const res = await fetch(`${CONFIG.RIA_URL}${sep}assetId=${encodeURIComponent(id)}`);
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.message||"Could not load resource");
+        const a = data.asset||data.body||data.Document||data;
+        assetMap.set(a.id,a);
+        $("previewContent").innerHTML = previewHtml(a);
+        openModal("previewOverlay");
+      } catch(e) { toast(e.message,"err"); }
+    }
+
+    function previewHtml(a) {
+      const chipClass = CHIP_COLORS[a.category]||'chip-gray';
+      return `<div class="preview-media">${previewMedia(a)}</div>
+        <div>
+          <div class="card-meta-top" style="margin-bottom:10px"><span class="chip chip-blue">${esc(a.courseId||'Course')}</span><span class="chip ${chipClass}">${esc(a.category||'Material')}</span></div>
+          <div class="preview-info-title">${esc(a.title||'Resource')}</div>
+          <div class="preview-info-desc">${esc(a.description||'No description provided.')}</div>
+          <div>
+            ${infoRow('Course',a.courseName||courseName(a.courseId))}
+            ${infoRow('File',a.fileName||'')}
+            ${infoRow('Type',a.contentType||'')}
+            ${infoRow('Uploaded by',a.uploadedBy||'')}
+            ${infoRow('Visibility',a.visibility||'')}
+            ${infoRow('Created',formatDate(a.createdAt))}
+            ${infoRow('Tags',a.tags||'')}
+          </div>
+          <div class="preview-actions">
+            <button class="btn btn-secondary" onclick="copyText('${escAttr(a.fileUrl||'')}','URL copied')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy link
+            </button>
+            <button class="btn btn-primary" onclick="window.open('${escAttr(a.fileUrl||'')}','_blank')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open file
+            </button>
+          </div>
+          <p style="font-size:11px;color:var(--text3);margin-top:12px;line-height:1.5">If preview fails, the Blob container may be private. The file is stored correctly in Azure.</p>
+        </div>`;
+    }
+
+    function infoRow(key,val) {
+      if(!val) return '';
+      return `<div class="info-row"><span class="info-key">${esc(key)}</span><span class="info-val">${esc(val)}</span></div>`;
+    }
+
+    function previewMedia(a) {
+      if(!a.fileUrl) return `<div class="card-thumb-icon-wrap"><div class="card-thumb-icon thumb-doc-color" style="width:72px;height:72px;border-radius:16px">${THUMB_SVG.document}</div></div>`;
+      if(a.contentType==="image") return `<img src="${escAttr(a.fileUrl)}" alt="${escAttr(a.title)}">`;
+      if(a.contentType==="video") return `<video controls src="${escAttr(a.fileUrl)}"></video>`;
+      if(a.contentType==="pdf") return `<iframe src="${escAttr(a.fileUrl)}"></iframe>`;
+      return `<div style="text-align:center"><div class="card-thumb-icon thumb-doc-color" style="margin:0 auto 12px;width:64px;height:64px;border-radius:14px">${THUMB_SVG.document}</div><p style="color:var(--text2);font-size:13px">No preview for this type</p></div>`;
+    }
+
+    function handleFilePreview() {
+      const f = $("fileInput").files[0]; const box = $("uploadPreview");
+      if(!f) { box.classList.remove("show"); box.innerHTML=''; return; }
+      const size = formatBytes(f.size);
+      if(f.type.startsWith("image/")) {
+        const r = new FileReader();
+        r.onload = () => { box.innerHTML=`<img src="${r.result}" alt="Preview"><div class="file-info-row"><span>${esc(f.name)}</span><strong>${size}</strong></div>`; box.classList.add("show"); };
+        r.readAsDataURL(f);
+      } else { box.innerHTML=`<div class="file-info-row"><span>${esc(f.name)}</span><strong>${size}</strong></div>`; box.classList.add("show"); }
+    }
+
+    async function uploadResource(e) {
+      e.preventDefault();
+      try {
+        check(CONFIG.CNA_URL,"Upload URL");
+        const f = $("fileInput").files[0]; if(!f) throw new Error("Choose a file first");
+        setProgress(20);
+        const base64 = await fileBase64(f); setProgress(55);
+        const course = COURSES.find(c=>c.id===$("courseId").value);
+        const ext = f.name.split('.').pop().toLowerCase();
+        let contentType = 'document';
+        if(['jpg','jpeg','png','gif','webp'].includes(ext)) contentType='image';
+        else if(['mp4','mov','webm'].includes(ext)) contentType='video';
+        else if(ext==='pdf') contentType='pdf';
+        const body = { title:$("title").value.trim(), description:$("description").value.trim(), contentType, courseId:course.id, courseName:course.name, category:$("category").value, week:$("week").value.trim(), tags:$("tags").value.trim(), visibility:$("visibility").value, uploadedBy:$("uploadedBy").value.trim()||"Aayush", uploadedByRole:"Student", fileName:f.name, fileContentBase64:base64 };
+        const res = await fetch(CONFIG.CNA_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+        const data = await res.json();
+        if(!res.ok||data.success===false) throw new Error(data.message||"Upload failed");
+        setProgress(100); toast("Material uploaded successfully"); closeModal("uploadOverlay");
+        $("uploadForm").reset(); $("uploadedBy").value="Aayush"; $("uploadPreview").classList.remove("show");
+        await loadAssets();
+      } catch(e) { toast(e.message,"err"); }
+      finally { setTimeout(()=>setProgress(0),700); }
+    }
+
+    function openEdit(id) {
+      const a = assetMap.get(id); if(!a) return toast("Resource not found","err");
+      $("editAssetId").value=a.id; $("editTitle").value=a.title||''; $("editDescription").value=a.description||'';
+      $("editCourseId").value=a.courseId||'COM682'; $("editCategory").value=a.category||'Lecture Notes';
+      $("editWeek").value=a.week||''; $("editVisibility").value=a.visibility||'Course students'; $("editTags").value=a.tags||'';
+      openModal("editOverlay");
+    }
+
+    async function updateResource(e) {
+      e.preventDefault();
+      try {
+        check(CONFIG.UIA_URL,"Update URL");
+        const course = COURSES.find(c=>c.id===$("editCourseId").value);
+        const body = { assetId:$("editAssetId").value, title:$("editTitle").value.trim(), description:$("editDescription").value.trim(), courseId:course.id, courseName:course.name, category:$("editCategory").value, week:$("editWeek").value.trim(), tags:$("editTags").value.trim(), visibility:$("editVisibility").value };
+        const res = await fetch(CONFIG.UIA_URL,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+        const data = await res.json();
+        if(!res.ok||data.success===false) throw new Error(data.message||"Update failed");
+        toast("Material updated successfully"); closeModal("editOverlay"); await loadAssets();
+      } catch(e) { toast(e.message,"err"); }
+    }
+
+    async function deleteResource(id) {
+      if(!confirm("Delete this material and its uploaded file? This cannot be undone.")) return;
+      try {
+        check(CONFIG.DIA_URL,"Delete URL");
+        const sep = CONFIG.DIA_URL.includes("?")?"&":"?";
+        const res = await fetch(`${CONFIG.DIA_URL}${sep}assetId=${encodeURIComponent(id)}`,{method:"DELETE"});
+        const data = await res.json();
+        if(!res.ok||data.success===false) throw new Error(data.message||"Delete failed");
+        toast("Material deleted"); await loadAssets();
+      } catch(e) { toast(e.message,"err"); }
+    }
+
+    function updateStats() {
+      const n = assets.length;
+      $("totalCount").textContent = n;
+      $("heroTotal").textContent = n;
+      $("noteCount").textContent = assets.filter(a=>['Lecture Notes','Lecture Slides'].includes(a.category)).length;
+      $("mediaCount").textContent = assets.filter(a=>['image','video'].includes(a.contentType)).length;
+      $("activeStat").textContent = selectedCourse==='all'?'All':selectedCourse;
+    }
+
+    function countForCourse(id) { return id==='all'?assets.length:assets.filter(a=>a.courseId===id).length; }
+    function courseName(id) { return COURSES.find(c=>c.id===id)?.name||id||''; }
+    function setProgress(v) { const p=$("progress"),f=$("progressFill"); if(!v){p.classList.remove("show");f.style.width='0';return;} p.classList.add("show");f.style.width=v+'%'; }
+    function fileBase64(f) { return new Promise((ok,fail)=>{ const r=new FileReader(); r.onload=()=>ok(String(r.result).split(',')[1]); r.onerror=()=>fail(new Error('Could not read file')); r.readAsDataURL(f); }); }
+    function findArray(o) { if(Array.isArray(o))return o; if(!o||typeof o!=='object')return []; for(const k of['assets','value','Documents','body']){const a=findArray(o[k]);if(a.length)return a;} for(const k of Object.keys(o)){const a=findArray(o[k]);if(a.length)return a;} return []; }
+    function openModal(id) { $(id).classList.add('show'); document.body.style.overflow='hidden'; }
+    function closeModal(id) { $(id).classList.remove('show'); document.body.style.overflow=''; }
+    function check(url,name) { if(!url||url.includes('PASTE_')) throw new Error(name+' is not configured'); }
+    function toast(msg,type='ok') {
+      const t=$("toast");
+      const icon = type==='ok'
+        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`
+        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+      t.innerHTML = icon + esc(msg);
+      t.className=`toast show toast-${type}`;
+      setTimeout(()=>t.className='toast',4000);
+    }
+    function copyText(t,msg) { if(!t)return toast('Nothing to copy','err'); navigator.clipboard.writeText(t).then(()=>toast(msg||'Copied')); }
+    function formatDate(v) { if(!v)return 'N/A'; const d=new Date(v); return isNaN(d)?v:d.toLocaleString([],{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}); }
+    function formatBytes(b) { if(!b)return '0 B'; const u=['B','KB','MB','GB'];let n=b,i=0; while(n>=1024&&i<u.length-1){n/=1024;i++;} return `${n.toFixed(n>=10||i===0?0:1)} ${u[i]}`; }
+    function esc(v) { return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;'); }
+    function escAttr(v) { return esc(v).replaceAll('`','&#096;'); }
+
+    init();
+  
+</script>
+</body>
+</html>
