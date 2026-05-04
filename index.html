@@ -467,7 +467,7 @@ input,select,textarea{width:100%;border:1px solid var(--border);border-radius:14
     }
 
     function thumb(a) {
-      if(a.contentType==="image"&&a.fileUrl) return `<img src="${escAttr(a.fileUrl)}" alt="${escAttr(a.title)}" onerror="this.closest('.card-thumb').innerHTML='<div class=\\"card-thumb-icon-wrap\\"><div class=\\"card-thumb-icon thumb-img-color\\">${THUMB_SVG.image.replace(/"/g,"&quot;")}</div></div>'">`;
+      if(a.contentType==="image"&&a.fileUrl) return `<img src="${escAttr(a.fileUrl)}" alt="${escAttr(a.title)}" onerror="this.closest('.card-thumb').innerHTML='<div class=\\"card-thumb-icon-wrap\\"><div class=\\"card-thumb-icon thumb-img-color\\">${THUMB_SVG.image.replace(/"/g,"&quot;")}</div></div>`;
       const type = a.contentType||'document';
       const colorClass = {pdf:'thumb-pdf-color',video:'thumb-vid-color',image:'thumb-img-color',document:'thumb-doc-color'}[type]||'thumb-doc-color';
       const svg = THUMB_SVG[type]||THUMB_SVG.document;
